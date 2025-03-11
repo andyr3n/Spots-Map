@@ -90,11 +90,6 @@ function App() {
     setShowRegister(false);
   };
 
-  const handleCloseAuth = () => {
-    setShowRegister(false);
-    setShowLogin(false);
-  };
-
   const handleLogout = () => {
     myStorage.removeItem("user");
     setCurrentUser(null);
