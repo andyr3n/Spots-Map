@@ -62,6 +62,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const newPin = {
       username: currentUser,
       title,
@@ -70,14 +71,18 @@ function App() {
       lat: newPlace.lat,
       long: newPlace.long
     };
+  
     try {
       const res = await axios.post("/pins", newPin);
-      setPins([...pins, res.data]);
-      setNewPlace(null);
+      setPins([...pins, res.data]);  // Update pins with new pin
+      setNewPlace(null);             // Reset form state
+      setTitle("");                  // Clear title input
+      setDesc("");                   // Clear description input
+      setRating(null);               // Reset rating dropdown
     } catch (error) {
       console.log("Error adding pin:", error);
     }
-  };
+  };  
 
   // Function to toggle Login or Register modal
   const handleShowRegister = () => {
@@ -169,25 +174,35 @@ function App() {
             closeOnClick={false}
             onClose={() => setNewPlace(null)}
           >
-            <div>
-              <form onSubmit={handleSubmit}>
-                <label className="label">Title</label>
-                <input placeholder="Enter a title" onChange={(e)=>setTitle(e.target.value)}/>
-                <label className="label">Review</label>
-                <textarea placeholder="Write a review" onChange={(e)=>setDesc(e.target.value)}/>
-                <label className="label">Rating</label>
-                <select onChange={(e)=>setRating(e.target.value)}>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                <button type="submit" className="submitButton">
-                  Add Pin
-                </button>
-              </form>
-            </div>
+           <div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(); // Prevents form from refreshing the page
+                handleSubmit(e);    // Pass event object to handleSubmit
+                setRating(null);    // Reset rating after submission
+              }}
+            >
+              <label className="label">Title</label>
+              <input placeholder="Enter a title" onChange={(e) => setTitle(e.target.value)} />
+              
+              <label className="label">Review</label>
+              <textarea placeholder="Write a review" onChange={(e) => setDesc(e.target.value)} />
+              
+              <label className="label">Rating</label>
+              <select value={rating || ""} onChange={(e) => setRating(e.target.value)}>
+                <option value="" disabled>Select a rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              
+              <button type="submit" className="submitButton">
+                Add Pin
+              </button>
+            </form>
+          </div>
           </Popup>
         )}
       </Map>
