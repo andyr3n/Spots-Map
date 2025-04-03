@@ -43,7 +43,7 @@ export default function Register({setShowRegister}) {
         <div className="registerContainer">
             <div className="logo">
                 <RoomIcon />
-                DDMap
+                SpotsMap
             </div>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Username" ref={nameRef} required />
