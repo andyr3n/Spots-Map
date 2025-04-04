@@ -8,6 +8,7 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en.json';
 import Register from './components/Register';
 import Login from './components/Login';
+import { GeolocateControl } from 'react-map-gl/mapbox';
 
 TimeAgo.addDefaultLocale(en);
 
@@ -39,8 +40,27 @@ function App() {
         console.log("Error fetching pins:", error);
       }
     };
+  
     getPins();
+  
+    // Get user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setViewState((prev) => ({
+            ...prev,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            zoom: 13
+          }));
+        },
+        (error) => {
+          console.log("Error getting user location:", error);
+        }
+      );
+    }
   }, []);
+  
   
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
@@ -222,6 +242,11 @@ function App() {
           </div>
           </Popup>
         )}
+        <GeolocateControl
+          position="top-left"
+          trackUserLocation={true}
+          showUserHeading={true}
+        />
       </Map>
     </div>
   );
