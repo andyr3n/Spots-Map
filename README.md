@@ -10,6 +10,7 @@ Spots Map is a full-stack **MERN (MongoDB, Express.js, React, Node.js)** applica
 ✔️ Interactive **Mapbox** integration for marking locations  
 ✔️ **User authentication** (Login/Register)  
 ✔️ Users can **add, rate, and review** places  
+✔️ Automatically shows **user’s current location**  
 ✔️ Backend API built with **Node.js + Express + MongoDB**  
 ✔️ Frontend built with **React.js + Mapbox**  
 
@@ -19,7 +20,7 @@ Spots Map is a full-stack **MERN (MongoDB, Express.js, React, Node.js)** applica
 - **Frontend:** React.js, Axios, Mapbox GL
 - **Backend:** Node.js, Express.js, MongoDB
 - **Database:** MongoDB Atlas
-- **Hosting:** Render (Backend), Netlify (Frontend)
+- **Hosting:** Railway (Backend), Netlify (Frontend)
 
 ---
 
@@ -78,7 +79,7 @@ npm install
 Inside the **frontend** folder, create a `.env` file:
 ```
 REACT_APP_MAPBOX=your_mapbox_access_token
-REACT_APP_API_BASE_URL=http://localhost:8800/api
+REACT_APP_API_URL=http://localhost:8800
 ```
 👉 **Replace** `your_mapbox_access_token` with your **Mapbox API key**.
 
@@ -114,7 +115,7 @@ Your **frontend should open in the browser at** `http://localhost:3000`.
 ✔ **Ensure the correct PORT is used** (`8800`)  
 
 ### ❓ **2. Frontend is not connecting to Backend**
-✔ **Ensure `REACT_APP_API_BASE_URL=http://localhost:8800/api` in `.env`**  
+✔ **Ensure `REACT_APP_API_URL=http://localhost:8800` in `.env`**  
 ✔ **Check CORS settings in `index.js` (backend)**  
 
 ### ❓ **3. Map is not loading**
