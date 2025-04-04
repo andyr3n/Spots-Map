@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const res = await axios.get("/pins");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/pins`);
         setPins(res.data);
       } catch (error) {
         console.log("Error fetching pins:", error);
@@ -73,7 +73,7 @@ function App() {
     };
   
     try {
-      const res = await axios.post("/pins", newPin);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/pins`, newPin);
       setPins([...pins, res.data]);  // Update pins with new pin
       setNewPlace(null);             // Reset form state
       setTitle("");                  // Clear title input
@@ -129,19 +129,33 @@ function App() {
       >
         {pins.map((p) => (
           <React.Fragment key={p._id}>
-            <Marker longitude={p.long} latitude={p.lat}>
-              <RoomIcon 
-                style={{ fontSize: 25, color: p.username === currentUser ? "tomato" : "slateblue", cursor: "pointer" }}
-                onClick={() => handleMarkerClick(p._id, p.lat, p.long)} 
+            <Marker
+              longitude={p.long}
+              latitude={p.lat}
+              offset={[0, -21]}
+            >
+              <div
+                onClick={() => handleMarkerClick(p._id, p.lat, p.long)}
+                style={{
+                  width: 30,
+                  height: 30,
+                  backgroundColor: p.username === currentUser ? 'tomato' : 'slateblue',
+                  borderRadius: '50% 50% 50% 0',
+                  transform: 'rotate(-45deg)',
+                  border: '2px solid white',
+                  cursor: 'pointer',
+                  boxShadow: '0 0 3px rgba(0,0,0,0.5)',
+                }}
+                title={p.title}
               />
             </Marker>
+
             {p._id === currentPlaceId &&
             <Popup
               longitude={p.long}
               latitude={p.lat}
               closeButton={true}
               closeOnClick={false}
-              anchor="bottom"
               onClose={() => setCurrentPlaceId(null)}
             >
               <div className="card">
