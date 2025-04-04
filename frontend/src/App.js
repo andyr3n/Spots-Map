@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/pins`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/pins`);
         setPins(res.data);
       } catch (error) {
         console.log("Error fetching pins:", error);
@@ -73,7 +73,7 @@ function App() {
     };
   
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/pins`, newPin);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/pins`, newPin);
       setPins([...pins, res.data]);  // Update pins with new pin
       setNewPlace(null);             // Reset form state
       setTitle("");                  // Clear title input
