@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import RoomIcon from '@mui/icons-material/Room';
 import StarIcon from '@mui/icons-material/Star';
 import './App.css';
 import axios from 'axios';
