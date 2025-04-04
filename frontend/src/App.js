@@ -9,6 +9,7 @@ import en from 'javascript-time-ago/locale/en.json';
 import Register from './components/Register';
 import Login from './components/Login';
 import { GeolocateControl } from 'react-map-gl/mapbox';
+import { useRef } from 'react';
 
 TimeAgo.addDefaultLocale(en);
 
@@ -30,6 +31,7 @@ function App() {
     latitude: 37.8,
     zoom: 6
   });
+  const geoControlRef = useRef();
 
   useEffect(() => {
     const getPins = async () => {
@@ -43,7 +45,7 @@ function App() {
   
     getPins();
   
-    // Get user's current location
+    // Set initial location manually (optional fallback)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -59,7 +61,16 @@ function App() {
         }
       );
     }
-  }, []);
+  
+    // Trigger the built-in Mapbox blue dot
+    const timeout = setTimeout(() => {
+      if (geoControlRef.current) {
+        geoControlRef.current.trigger(); // <--- this shows the dot
+      }
+    }, 1000);
+  
+    return () => clearTimeout(timeout);
+  }, []);  
   
   
   const handleMarkerClick = (id, lat, long) => {
@@ -243,6 +254,7 @@ function App() {
           </Popup>
         )}
         <GeolocateControl
+          ref={geoControlRef}
           position="top-left"
           trackUserLocation={true}
           showUserHeading={true}
