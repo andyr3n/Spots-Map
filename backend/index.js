@@ -11,7 +11,7 @@ dotenv.config();
 // ✅ Enable CORS for local and deployed frontend
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://your-netlify-site.netlify.app"  // ← replace with your actual Netlify URL
+  "https://spots-map.netlify.app/"
 ];
 
 app.use(cors({
