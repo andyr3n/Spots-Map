@@ -137,16 +137,17 @@ function App() {
       {showLogin && <Login setShowLogin={setShowLogin} myStorage={myStorage} setCurrentUser={setCurrentUser}/>}
       
       {/* Conditionally show buttons */}
-      {currentUser ? (
-        <div className="logout-container">
+      <div className="auth-buttons-container">
+        {currentUser ? (
           <button className="logout" onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div className="auth-buttons-container">
-          <button className="login" onClick={handleShowLogin}>Login</button>
-          <button className="register" onClick={handleShowRegister}>Register</button>
-        </div>
-      )}
+        ) : (
+          <>
+            <button className="login" onClick={handleShowLogin}>Login</button>
+            <button className="register" onClick={handleShowRegister}>Register</button>
+          </>
+        )}
+      </div>
+
 
       {/* Map Component */}
       <Map
