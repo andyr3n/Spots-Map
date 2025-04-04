@@ -124,7 +124,11 @@ function App() {
         onMove={evt => setViewState(evt.viewState)}
         style={{ width: "100vw", height: "100vh" }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
-        onDblClick={handleAddClick}
+        onDblClick={(e) => {
+          if (currentUser) {
+            handleAddClick(e);
+          }
+        }}        
       >
         {pins.map((p) => (
           <React.Fragment key={p._id}>
