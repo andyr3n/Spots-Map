@@ -4,6 +4,8 @@ Spots Map is a full-stack **MERN (MongoDB, Express.js, React, Node.js)** applica
 
 ---
 
+# Deployed Site: https://spots-map.netlify.app/
+
 ## 🚀 **Features**
 ✔️ Interactive **Mapbox** integration for marking locations  
 ✔️ **User authentication** (Login/Register)  
