@@ -9,37 +9,26 @@ const userRoute = require('./routes/users');
 
 dotenv.config();
 
-// ✅ Set allowed origins
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://spots-map.netlify.app"
-];
-
-// ✅ Enable CORS
+// ✅ Enable CORS for Netlify frontend
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "https://spots-map.netlify.app",
   credentials: true
 }));
 
-// ✅ Handle preflight requests
-app.options('*', cors());
+// ✅ Optional: Health check route
+app.get('/', (req, res) => {
+  res.send('Backend is alive ✅');
+});
 
+// ✅ Parse incoming JSON
 app.use(express.json());
 
+// ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log('MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
+// ✅ Register routes
 app.use('/api/pins', pinRoute);
 app.use('/api/users', userRoute);
 
